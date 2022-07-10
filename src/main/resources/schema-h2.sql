@@ -1,6 +1,6 @@
-create table user
+create table member
 (
-    id       varchar(40)  not null primary key,
-    password varchar(400) not null,
-    name     varchar(20)  not null
+    member_id   integer primary key,
+    password    varchar(400) not null,
+    member_name varchar(20)  not null
 );

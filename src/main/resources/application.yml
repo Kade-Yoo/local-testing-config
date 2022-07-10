@@ -8,11 +8,19 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     username: sa
-    password:
-    url: jdbc:h2:mem:testdb;
+    # 회사에서 PostgreSQL을 사용하고 있기 때문에 Mode를 PostgreSQL로 설정하고
+    # DATABASE_TO_LOWER = TRUE -> 인용되지 않은 식별자나 짧은 이름이 Lower Case로 변환되는 설정
+    # DEFAULT_NULL_ORDERING = HIGH -> 정렬할 때 NULL 값을 앞으로 배치할지 뒤로 배치할지 설정
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
   jpa:
-    generate-ddl: off
     database: h2
+    # JPA SQL log 표시 설정
+    show-sql: true
+    defer-datasource-initialization: true
+    # 설정하지 않을 경우 default : create-drop으로 설정되어 설정한 테이블로 생성하고 삭제하는 것을 반복함
+    # 아래 sql.init.schema-locations, sql.init.data-locations를 사용할 경우 ddl-auto : none으로 설정해줘야함
+    hibernate:
+      ddl-auto: none
   sql:
     init:
       schema-locations: classpath:schema-h2.sql
